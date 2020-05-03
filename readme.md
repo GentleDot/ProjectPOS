@@ -1,7 +1,7 @@
 # ProjectPOS(2020)
 - 2016년 포트폴리오로 제작한 Project(Bakery 사업장의 POS 시스템 개발)를 Spring Boot Project로 다시 제작(Remaster)
     - 이전 6인 팀으로 제작되었던 프로젝트를 1인 개발로 다시 구현하기 때문에 모든 기능의 재구현보다는 핵심 기능이 잘 작동하는 방향으로 개발 진행  
-    - 구현 목표 : "`상품` 판매를 위해 등록된 `재고`를 `판매`할 수 있는 POS 시스템"
+    - 구현 목표 : "`상품` 판매를 위해 등록된 `재고`를 `판매`할 수 있는 `POS` 시스템"
 - 세부적인 내용은 [Notion_Gentledot](https://www.notion.so/gentledot/ProjectPOS-2020-2c2fde23a4ff4f53826f9c66b51c6540) 에 정리.
 
 # 이전 프로젝트는...
@@ -48,6 +48,42 @@
     - POS 기능
     - 매출 정보 조회
 
-# 어떻게 '다시' 구현할 것인가?
+# 다시 구현 하기!
+## 개발 환경
+- Spring Boot 2.2.6.RELEASE
+- Gradle 6.3
+- Libraries
+    ```
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.apache.commons:commons-lang3:3.10'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.h2database:h2'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    ```
 
+## 공통 설정
+- log 설정 : `spring-boot-starter-logging` 에서 제공되는 logback 사용
+    - resources > logback.xml 내 logging 설정
+    
+## 상품 관리 기능
+### DB 설정 및 model 객체 생성
+- in-memory DB인 H2를 사용 (mySQL mode)
+    - application.properties 내 spring.datasource.** 설정
+    
+- schema.sql 을 통해 필요한 table 생성 : goods
+    ```
+    goods_no          BIGINT
+    goods_code        VARCHAR(20) 
+    goods_name        VARCHAR(50) 
+    goods_price       INT         
+    goods_category    VARCHAR(4)  
+    goods_description VARCHAR(300)
+    status_for_sale   TINYINT     
+    ```
+
+- Entity 객체 생성 : Goods
+    - 이전과 달리 상품 정보 성격의 column은 description으로 대체
+    - 판매 상품 상태를 추가
 
