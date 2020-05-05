@@ -15,15 +15,31 @@ class GoodsTest {
     @Test
     @DisplayName("상품 생성 테스트")
     void createGoodsTest() {
-        Goods goods = new Goods.Builder("testCode")
+        Goods goods = new Goods.Builder()
                 .goodsName("testName")
                 .goodsPrice(100)
-                .goodsCat("testCategory")
+                .goodsCat(GoodsCategories.BAKERY)
                 .build();
 
         assertThat(goods, is(notNullValue()));
-        // [goodsNo=0,goodsCode=testCode,goodsName=testName,goodsPrice=100,goodsCat=testCategory,goodsDesc=<null>,forSale(status)=true]
+        // [goodsNo=0,goodsCode=<null>,goodsName=testName,goodsPrice=100,goodsCat=test,goodsDesc=<null>,forSale(status)=true]
         log.debug("생성된 goods : {}", goods);
+    }
+
+    @Test
+    @DisplayName("상품 카테고리를 enum 객체로 생성하여 활용")
+    void CategoryEnumTest() {
+        GoodsCategories bakery = GoodsCategories.valueOf("BAKERY");
+        String code = bakery.getCode();
+        GoodsCategories bakery_dir = GoodsCategories.BAKERY;
+
+        log.debug("카테고리 코드 확인 : {}", code);
+
+        GoodsCategories category = GoodsCategories.getCategory(code);
+        log.debug("코드로 카테고리 확인 : {}", category);
+
+        assertThat(bakery.equals(bakery_dir), is(true));
+        assertThat(bakery_dir.equals(category), is(true));
     }
 
 }

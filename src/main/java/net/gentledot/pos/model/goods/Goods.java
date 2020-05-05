@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 public class Goods {
     private long goodsNo;
@@ -18,11 +19,7 @@ public class Goods {
     private boolean status;
 
     private Goods(Long goodsNo, String goodsCode, String goodsName, Integer goodsPrice, String goodsCat, String goodsDesc, boolean status) {
-        if (StringUtils.isBlank(goodsCode)) {
-            throw new RuntimeException("상품코드는 필수 입니다.");
-        } else if (goodsCode.length() > 20) {
-            throw new RuntimeException("상품코드는 20자 내외로 설정할 수 있습니다.");
-        } else if (StringUtils.isBlank(goodsName)) {
+        if (StringUtils.isBlank(goodsName)) {
             throw new RuntimeException("상품명은 필수 입니다.");
         } else if (goodsName.getBytes(StandardCharsets.UTF_8).length > 50) {
             throw new RuntimeException("상품명은 50bytes 내외로 설정할 수 있습니다.");
@@ -41,7 +38,7 @@ public class Goods {
         this.status = status;
     }
 
-    public long getGoodsNo() {
+    public Long getGoodsNo() {
         return goodsNo;
     }
 
@@ -53,7 +50,7 @@ public class Goods {
         return goodsName;
     }
 
-    public int getGoodsPrice() {
+    public Integer getGoodsPrice() {
         return goodsPrice;
     }
 
@@ -61,8 +58,8 @@ public class Goods {
         return goodsCat;
     }
 
-    public String getGoodsDesc() {
-        return goodsDesc;
+    public Optional<String> getGoodsDesc() {
+        return Optional.ofNullable(goodsDesc);
     }
 
     public boolean isForSaleGoods() {
@@ -114,11 +111,7 @@ public class Goods {
         private String goodsDesc;
         private boolean status;
 
-        protected Builder() {
-        }
-
-        public Builder(String goodsCode) {
-            this.goodsCode = goodsCode;
+        public Builder() {
             this.status = true;
         }
 
@@ -142,8 +135,10 @@ public class Goods {
             return this;
         }
 
-        public Builder goodsCat(String goodsCat) {
-            this.goodsCat = goodsCat;
+        public Builder goodsCat(GoodsCategories goodsCat) {
+            if (StringUtils.isBlank(this.goodsCat)) {
+                this.goodsCat = goodsCat.getCode();
+            }
             return this;
         }
 
