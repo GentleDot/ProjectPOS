@@ -72,7 +72,7 @@
 - in-memory DB인 H2를 사용 (mySQL mode)
     - application.properties 내 spring.datasource.** 설정
     
-- schema.sql 을 통해 필요한 table 생성 : goods
+- schema-h2.sql 을 통해 필요한 table 생성 : goods
     ```
     goods_no          BIGINT
     goods_code        VARCHAR(20) 
@@ -87,3 +87,7 @@
     - 이전과 달리 상품 정보 성격의 column은 description으로 대체
     - 판매 상품 상태를 추가
 
+### GoodsMapper 구현
+- 상품 저장, 상품 조회, 상품 리스트 조회, 상품 수정 구현
+- transaction 확인을 위해 log 출력 : log4jdbc 활용
+- 카테고리를 enum 객체로 관리 : GoodsCategories
