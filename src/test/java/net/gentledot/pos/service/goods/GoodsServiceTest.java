@@ -112,6 +112,33 @@ class GoodsServiceTest {
         assertThat(goodsService.updateGoodsInfo(requestCode, goodsRequest), is(true));
     }
 
+    @Test
+    @DisplayName("상품을 비매품으로 설정")
+    void setNotForSaleTest() {
+        // given
+        String requestCode = TEST_GOODS_CODE;
+        Goods goods = generateTestGoods();
+
+        // when
+        when(goodsMapper.findByCode(requestCode)).thenReturn(Optional.of(goods));
+        Goods target = goodsMapper.findByCode(requestCode)
+                .orElseThrow(() -> new RuntimeException("대상 상품을 조회할 수 없습니다."));
+
+        Goods modifiedGoods = new Goods.Builder(target)
+                .goodsStatus(false)
+                .build();
+        when(goodsMapper.update(modifiedGoods)).thenReturn(1);
+
+        int result = goodsMapper.update(modifiedGoods);
+
+        if (result != 1) {
+            throw new RuntimeException("수정 처리에 실패하였습니다.");
+        }
+
+        // then
+        assertThat(goodsService.setNotForSale(requestCode), is(true));
+    }
+
     private Goods generateTestGoods() {
         return new Goods.Builder()
                 .goodsName("testGoods")

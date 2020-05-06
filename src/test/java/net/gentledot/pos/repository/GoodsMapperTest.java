@@ -62,7 +62,7 @@ class GoodsMapperTest {
         assertThat(goods.getGoodsPrice(), is(100));
         assertThat(goods.getGoodsCat(), is("cat"));
         assertThat(goods.getGoodsDesc().get(), is("testdesc"));
-        assertThat(goods.isForSaleGoods(), is(false));
+        assertThat(goods.isForSaleGoods(), is(true));
     }
 
     @Test
@@ -77,7 +77,7 @@ class GoodsMapperTest {
         assertThat(goods.getGoodsPrice(), is(100));
         assertThat(goods.getGoodsCat(), is("cat"));
         assertThat(goods.getGoodsDesc().get(), is("testdesc"));
-        assertThat(goods.isForSaleGoods(), is(false));
+        assertThat(goods.isForSaleGoods(), is(true));
     }
 
     @Test
@@ -91,7 +91,7 @@ class GoodsMapperTest {
         assertThat(all.get(0).getGoodsPrice(), is(100));
         assertThat(all.get(0).getGoodsCat(), is("cat"));
         assertThat(all.get(0).getGoodsDesc().get(), is("testdesc"));
-        assertThat(all.get(0).isForSaleGoods(), is(false));
+        assertThat(all.get(0).isForSaleGoods(), is(true));
     }
 
     @Test

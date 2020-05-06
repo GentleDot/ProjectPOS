@@ -56,4 +56,22 @@ public class GoodsService {
 
         return true;
     }
+
+    @Transactional
+    public boolean setNotForSale(String goodsCode) {
+        Goods targetGoods = goodsMapper.findByCode(goodsCode)
+                .orElseThrow(() -> new RuntimeException("대상 상품을 조회할 수 없습니다."));
+
+        Goods modifiedGoods = new Goods.Builder(targetGoods)
+                .goodsStatus(false)
+                .build();
+
+        int result = goodsMapper.update(modifiedGoods);
+
+        if (result != 1) {
+            throw new RuntimeException("수정 처리에 실패하였습니다.");
+        }
+
+        return true;
+    }
 }

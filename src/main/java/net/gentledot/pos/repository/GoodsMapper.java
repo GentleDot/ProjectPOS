@@ -35,12 +35,14 @@ public interface GoodsMapper {
 
     @Select("select goods_no, goods_code, goods_name, goods_price, goods_category, goods_description, status_for_sale " +
             "from goods " +
-            "where goods_no = #{id}")
+            "where status_for_sale = 1 " +
+            "and goods_no = #{id}")
     Optional<Goods> findById(long id);
 
     @Select("select goods_no, goods_code, goods_name, goods_price, goods_category, goods_description, status_for_sale " +
             "from goods " +
-            "where goods_code = #{code}")
+            "where status_for_sale = 1 " +
+            "and goods_code = #{code}")
     Optional<Goods> findByCode(String code);
 
 
