@@ -2,7 +2,7 @@ package net.gentledot.pos.service.goods;
 
 import net.gentledot.pos.model.goods.Goods;
 import net.gentledot.pos.model.request.GoodsRequest;
-import net.gentledot.pos.repository.GoodsMapper;
+import net.gentledot.pos.mapper.GoodsMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

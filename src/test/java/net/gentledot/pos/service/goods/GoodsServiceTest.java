@@ -4,7 +4,7 @@ package net.gentledot.pos.service.goods;
 import net.gentledot.pos.model.goods.Goods;
 import net.gentledot.pos.model.goods.GoodsCategories;
 import net.gentledot.pos.model.request.GoodsRequest;
-import net.gentledot.pos.repository.GoodsMapper;
+import net.gentledot.pos.mapper.GoodsMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 
+@ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 class GoodsServiceTest {
     private static final String TEST_GOODS_CODE = "2020bake1";

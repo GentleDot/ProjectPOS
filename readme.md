@@ -80,7 +80,8 @@
     goods_price       INT         
     goods_category    VARCHAR(4)  
     goods_description VARCHAR(300)
-    status_for_sale   TINYINT     
+    status_for_sale   TINYINT
+    created_at        TIMESTAMP     
     ```
 
 - Entity 객체 생성 : Goods
@@ -91,3 +92,14 @@
 - 상품 저장, 상품 조회, 상품 리스트 조회, 상품 수정 구현
 - transaction 확인을 위해 log 출력 : log4jdbc 활용
 - 카테고리를 enum 객체로 관리 : GoodsCategories
+
+### GoodsService, controller 구현
+- 도메인 요청 객체 생성 : GoodsRequest
+- GoodsServiceTest를 통해 로직 설정 (mocking)
+    - 상품 등록 요청 (POST /api/v1/goods/add)
+    - 상품 List 조회 요청 (GET /api/v1/goods/listAll)
+    - 상품 조회 요청 (GET /api/v1/goods/info/{goodsCode})
+    - 상품 수정 요청 (PUT /api/v1/goods/modify/{goodsCode})
+    - 상품 삭제(비매품 설정) (PATCH /api/v1/goods/unuse/{goodsCode})
+- GoodsControllerTest를 통해 MVC 작동 테스트
+- test DB (H2)와 실제 환경 DB (MySQL) 분리 
