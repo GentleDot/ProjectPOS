@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class Goods {
@@ -17,8 +18,9 @@ public class Goods {
     private String goodsCat;
     private String goodsDesc;
     private boolean status;
+    private LocalDateTime createdAt;
 
-    private Goods(Long goodsNo, String goodsCode, String goodsName, Integer goodsPrice, String goodsCat, String goodsDesc, boolean status) {
+    private Goods(Long goodsNo, String goodsCode, String goodsName, Integer goodsPrice, String goodsCat, String goodsDesc, boolean status, LocalDateTime createdAt) {
         if (StringUtils.isBlank(goodsName)) {
             throw new RuntimeException("상품명은 필수 입니다.");
         } else if (goodsName.getBytes(StandardCharsets.UTF_8).length > 50) {
@@ -36,6 +38,7 @@ public class Goods {
         this.goodsCat = goodsCat;
         this.goodsDesc = goodsDesc;
         this.status = status;
+        this.createdAt = ObjectUtils.defaultIfNull(createdAt, LocalDateTime.now());
     }
 
     public Long getGoodsNo() {
@@ -64,6 +67,10 @@ public class Goods {
 
     public boolean isForSaleGoods() {
         return status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     @Override
@@ -110,6 +117,7 @@ public class Goods {
         private String goodsCat;
         private String goodsDesc;
         private boolean status;
+        private LocalDateTime createdAt;
 
         public Builder() {
             this.status = true;
@@ -123,6 +131,7 @@ public class Goods {
             this.goodsCat = goods.goodsCat;
             this.goodsDesc = goods.goodsDesc;
             this.status = goods.status;
+            this.createdAt = goods.createdAt;
         }
 
         public Builder goodsName(String goodsName) {
@@ -153,7 +162,7 @@ public class Goods {
         }
 
         public Goods build() {
-            return new Goods(goodsNo, goodsCode, goodsName, goodsPrice, goodsCat, goodsDesc, status);
+            return new Goods(goodsNo, goodsCode, goodsName, goodsPrice, goodsCat, goodsDesc, status, createdAt);
         }
     }
 }
