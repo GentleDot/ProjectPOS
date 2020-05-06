@@ -1,4 +1,4 @@
-package net.gentledot.pos.repository;
+package net.gentledot.pos.mapper;
 
 import net.gentledot.pos.model.goods.Goods;
 import net.gentledot.pos.model.goods.GoodsCategories;
@@ -8,7 +8,6 @@ import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -17,7 +16,6 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @MybatisTest

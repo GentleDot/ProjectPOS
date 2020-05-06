@@ -1,25 +1,13 @@
-package net.gentledot.pos.repository;
+package net.gentledot.pos.mapper;
 
 import net.gentledot.pos.model.goods.Goods;
 import org.apache.ibatis.annotations.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Mapper
 public interface GoodsMapper {
-    /*@Results(id = "goodsResult",
-    value = {
-            @Result(column = "goods_no"         , property = "goodsNo", id = true, javaType = long.class),
-            @Result(column = "goods_code"       , property = "goodsCode", javaType = String.class),
-            @Result(column = "goods_name"       , property = "goodsName", javaType = String.class),
-            @Result(column = "goods_price"      , property = "goodsPrice", javaType = int.class),
-            @Result(column = "goods_category"   , property = "goodsCat", javaType = String.class),
-            @Result(column = "goods_description", property = "goodsDesc", javaType = String.class),
-            @Result(column = "status_for_sale"  , property = "status", javaType = boolean.class),
-            @Result(column = "created_at"  , property = "createdAt", javaType = LocalDateTime.class)
-    })*/
 
     @Select("select now()")
     String getTime();
@@ -46,7 +34,6 @@ public interface GoodsMapper {
             "and goods_code = #{code}")
     Optional<Goods> findByCode(String code);
 
-
     @Update("update goods\n" +
             "set\n" +
             "    goods_name = #{goodsName},\n" +
@@ -55,7 +42,4 @@ public interface GoodsMapper {
             "    status_for_sale = #{status}\n" +
             "where goods_code = #{goodsCode}")
     int update(Goods goods);
-
-
-
 }
